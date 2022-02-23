@@ -10,13 +10,19 @@
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/* Purpose:     A simple tutorial virtual object layer (VOL) connector
+/* Purpose:     Utility functions for a simple tutorial virtual object layer
+ *              (VOL) connector
  */
 
-#ifndef TUTORIAL_VOL_CONNECTOR_H
-#define TUTORIAL_VOL_CONNECTOR_H
+#ifndef TUTORIAL_UTIL_H
+#define TUTORIAL_UTIL_H
 
-#define TUTORIAL_VOL_CONNECTOR_VALUE ((H5VL_class_value_t)198)
-#define TUTORIAL_VOL_CONNECTOR_NAME  "tutorial_vol_connector"
+#include <hdf5.h>
 
-#endif /* TUTORIAL_VOL_CONNECTOR_H */
+#include "tutorial_internal.h"
+
+char *                  make_path(const char *component1, const char *component2, const char *ext);
+struct tutorial_object *make_object(H5I_type_t type, const char *parent_path, const char *name);
+void                    destroy_object(struct tutorial_object **obj);
+
+#endif /* TUTORIAL_UTIL_H */
