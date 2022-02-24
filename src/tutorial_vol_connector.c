@@ -75,12 +75,12 @@ static const H5VL_class_t tutorial_vol_g = {
     },
     {
         /* file_cls */
-        tutorial_file_create,   /* create           */
-        tutorial_file_open,     /* open             */
-        NULL,                   /* get              */
-        tutorial_file_specific, /* specific         */
-        NULL,                   /* optional         */
-        tutorial_file_close     /* close            */
+        NULL, /* create           */
+        NULL, /* open             */
+        NULL, /* get              */
+        NULL, /* specific         */
+        NULL, /* optional         */
+        NULL  /* close            */
     },
     {
         /* group_cls */
@@ -110,9 +110,9 @@ static const H5VL_class_t tutorial_vol_g = {
     },
     {
         /* introspect_cls */
-        NULL,                          /* get_conn_cls     */
-        NULL,                          /* get_cap_flags    */
-        tutorial_introspect_opt_query, /* opt_query        */
+        NULL, /* get_conn_cls     */
+        NULL, /* get_cap_flags    */
+        NULL, /* opt_query        */
     },
     {
         /* request_cls */
@@ -152,12 +152,4 @@ const void *
 H5PLget_plugin_info(void)
 {
     return &tutorial_vol_g;
-}
-
-herr_t
-tutorial_introspect_opt_query(void *obj, H5VL_subclass_t subcls, int opt_type, uint64_t *flags)
-{
-    /* For now, we'll ignore the feature flags */
-    *flags = 0;
-    return 0;
 }

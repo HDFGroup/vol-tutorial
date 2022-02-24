@@ -274,57 +274,6 @@ error:
 } /* end test_getters() */
 
 /*-------------------------------------------------------------------------
- * Function:    test_file_ops()
- *
- * Purpose:     Tests VOL file operations
- *
- * Return:      SUCCEED/FAIL
- *
- *-------------------------------------------------------------------------
- */
-static herr_t
-test_file_ops(hid_t fapl_id)
-{
-    const char *filename = "file_ops.h5tut";
-    hid_t       fid      = H5I_INVALID_HID;
-
-    TESTING("VOL file operations");
-
-    /* Create an HDF5 file using the tutorial VOL connector */
-    if ((fid = H5Fcreate(filename, H5F_ACC_EXCL, H5P_DEFAULT, fapl_id)) < 0)
-        TEST_ERROR;
-
-    /* Close the file */
-    if (H5Fclose(fid) < 0)
-        TEST_ERROR;
-
-    /* Open the HDF5 file using the tutorial VOL connector */
-    if ((fid = H5Fopen(filename, H5F_ACC_RDWR, fapl_id)) < 0)
-        TEST_ERROR;
-
-    /* Close the file */
-    if (H5Fclose(fid) < 0)
-        TEST_ERROR;
-
-    /* Delete the file */
-    if (DELETE_FILES_g)
-        if (H5Fdelete(filename, fapl_id) < 0)
-            TEST_ERROR;
-
-    PASSED();
-    return SUCCEED;
-
-error:
-    H5E_BEGIN_TRY
-    {
-        H5Fclose(fid);
-    }
-    H5E_END_TRY;
-    return FAIL;
-
-} /* end test_file_ops() */
-
-/*-------------------------------------------------------------------------
  * Function:    main
  *
  * Purpose:     Tests tutorial VOL connector operations
@@ -336,8 +285,6 @@ error:
 int
 main(void)
 {
-    hid_t fapl_id = H5I_INVALID_HID;
-    hid_t vol_id  = H5I_INVALID_HID;
     int   nerrors = 0;
 
     puts("Testing tutorial VOL connector functionality.");
@@ -347,46 +294,8 @@ main(void)
     nerrors += test_multiple_registration() < 0 ? 1 : 0;
     nerrors += test_getters() < 0 ? 1 : 0;
 
-    /* Create a fapl that uses the tutorial VOL connector */
-    if ((fapl_id = H5Pcreate(H5P_FILE_ACCESS)) < 0) {
-        printf("File access property list creation FAILED\n");
-        nerrors++;
-        goto error;
-    }
-    if ((vol_id = H5VLregister_connector_by_name(TUTORIAL_VOL_CONNECTOR_NAME, H5P_DEFAULT)) < 0) {
-        printf("Tutorial VOL registration FAILED\n");
-        nerrors++;
-        goto error;
-    }
-    if (H5Pset_vol(fapl_id, vol_id, NULL) < 0) {
-        printf("Setting VOL in the fapl FAILED\n");
-        nerrors++;
-        goto error;
-    }
-
-    nerrors += test_file_ops(fapl_id) < 0 ? 1 : 0;
-
-    /* Close fapl and VOL connector */
-    if (H5Pclose(fapl_id) < 0) {
-        printf("Closing the fapl FAILED\n");
-        nerrors++;
-        goto error;
-    }
-    if (H5VLunregister_connector(vol_id) < 0) {
-        printf("Closing the VOL connector FAILED\n");
-        nerrors++;
-        goto error;
-    }
-
-error:
     if (nerrors) {
         printf("***** %d VOL connector plugin TEST%s FAILED! *****\n", nerrors, nerrors > 1 ? "S" : "");
-        H5E_BEGIN_TRY
-        {
-            H5Pclose(fapl_id);
-            H5VLunregister_connector(vol_id);
-        }
-        H5E_END_TRY;
         exit(EXIT_FAILURE);
     }
 

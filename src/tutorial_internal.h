@@ -18,13 +18,7 @@
 #include <hdf5.h>
 #include <stdio.h>
 
-struct tutorial_file;
 struct tutorial_object;
-
-struct tutorial_file {
-    /* The file's name */
-    char *filename;
-};
 
 struct tutorial_object {
     /* Dataset or group (and eventually datatype) */
@@ -38,15 +32,5 @@ struct tutorial_object {
 
     /* Data union goes here */
 };
-
-/* File callbacks */
-void * tutorial_file_create(const char *name, unsigned flags, hid_t fcpl_id, hid_t fapl_id, hid_t dxpl_id,
-                            void **req);
-void * tutorial_file_open(const char *name, unsigned flags, hid_t fapl_id, hid_t dxpl_id, void **req);
-herr_t tutorial_file_specific(void *obj, H5VL_file_specific_args_t *args, hid_t dxpl_id, void **req);
-herr_t tutorial_file_close(void *file, hid_t dxpl_id, void **req);
-
-/* Introspect callbacks */
-herr_t tutorial_introspect_opt_query(void *obj, H5VL_subclass_t subcls, int opt_type, uint64_t *flags);
 
 #endif /* TUTORIAL_INTERNAL_H */
