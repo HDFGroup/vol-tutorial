@@ -324,86 +324,6 @@ error:
 
 } /* end test_file_ops() */
 
-static herr_t
-test_group_ops(hid_t fapl_id)
-{
-    const char *filename = "group_ops.h5tut";
-    hid_t       fid      = H5I_INVALID_HID;
-    hid_t       gid1_1   = H5I_INVALID_HID;
-    hid_t       gid2_1   = H5I_INVALID_HID;
-    hid_t       gid2_2   = H5I_INVALID_HID;
-
-    TESTING("VOL group operations");
-
-    /* Create an HDF5 file using the tutorial VOL connector */
-    if ((fid = H5Fcreate(filename, H5F_ACC_EXCL, H5P_DEFAULT, fapl_id)) < 0)
-        TEST_ERROR;
-
-    /* Create a group off the root group */
-    if ((gid1_1 = H5Gcreate2(fid, "level_1_group_1", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-
-    /* Create two sub-groups off that group */
-    if ((gid2_1 = H5Gcreate2(gid1_1, "level_2_group_1", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-    if ((gid2_2 = H5Gcreate2(gid1_1, "level_2_group_2", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-
-    /* Close everything */
-    if (H5Gclose(gid1_1) < 0)
-        TEST_ERROR;
-    if (H5Gclose(gid2_1) < 0)
-        TEST_ERROR;
-    if (H5Gclose(gid2_2) < 0)
-        TEST_ERROR;
-    if (H5Fclose(fid) < 0)
-        TEST_ERROR;
-
-    /* Open the HDF5 file using the tutorial VOL connector */
-    if ((fid = H5Fopen(filename, H5F_ACC_RDWR, fapl_id)) < 0)
-        TEST_ERROR;
-
-    /* Open the group off the root group */
-    if ((gid1_1 = H5Gopen2(fid, "level_1_group_1", H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-
-    /* Open the sub-groups */
-    if ((gid2_1 = H5Gopen2(gid1_1, "level_2_group_1", H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-    if ((gid2_2 = H5Gopen2(gid1_1, "level_2_group_2", H5P_DEFAULT)) < 0)
-        TEST_ERROR;
-
-    /* Close everything */
-    if (H5Gclose(gid1_1) < 0)
-        TEST_ERROR;
-    if (H5Gclose(gid2_1) < 0)
-        TEST_ERROR;
-    if (H5Gclose(gid2_2) < 0)
-        TEST_ERROR;
-    if (H5Fclose(fid) < 0)
-        TEST_ERROR;
-
-    /* Delete the file */
-    if (DELETE_FILES_g)
-        if (H5Fdelete(filename, fapl_id) < 0)
-            TEST_ERROR;
-
-    PASSED();
-    return SUCCEED;
-
-error:
-    H5E_BEGIN_TRY
-    {
-        H5Fclose(fid);
-        H5Gclose(gid1_1);
-        H5Gclose(gid2_1);
-        H5Gclose(gid2_2);
-    }
-    H5E_END_TRY;
-    return FAIL;
-
-} /* end test_group_ops() */
-
 /*-------------------------------------------------------------------------
  * Function:    main
  *
@@ -445,7 +365,6 @@ main(void)
     }
 
     nerrors += test_file_ops(fapl_id) < 0 ? 1 : 0;
-    nerrors += test_group_ops(fapl_id) < 0 ? 1 : 0;
 
     /* Close fapl and VOL connector */
     if (H5Pclose(fapl_id) < 0) {

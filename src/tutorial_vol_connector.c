@@ -84,12 +84,12 @@ static const H5VL_class_t tutorial_vol_g = {
     },
     {
         /* group_cls */
-        tutorial_group_create, /* create           */
-        tutorial_group_open,   /* open             */
-        NULL,                  /* get              */
-        NULL,                  /* specific         */
-        NULL,                  /* optional         */
-        tutorial_group_close   /* close            */
+        NULL, /* create           */
+        NULL, /* open             */
+        NULL, /* get              */
+        NULL, /* specific         */
+        NULL, /* optional         */
+        NULL  /* close            */
     },
     {
         /* link_cls */

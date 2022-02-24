@@ -81,8 +81,8 @@ tutorial_file_create(const char *name, unsigned flags, hid_t fcpl_id, hid_t fapl
     /* Save this for later */
     f->filename = strdup(name);
 
-    /* Create the root group */
-    f->root = init_group(NULL, name, true);
+    /* Create the root group (NOTE) */
+    mkdir(name, 0700);
 
     /* Add a marker that this is an HDF5 file */
     add_hdf5_marker(name);
@@ -103,9 +103,6 @@ tutorial_file_open(const char *name, unsigned flags, hid_t fapl_id, hid_t dxpl_i
 
     /* Save this for later */
     f->filename = strdup(name);
-
-    /* Open the root group */
-    f->root = init_group(NULL, name, false);
 
     return f;
 }
@@ -140,9 +137,6 @@ herr_t
 tutorial_file_close(void *file, hid_t dxpl_id, void **req)
 {
     struct tutorial_file *f = (struct tutorial_file *)file;
-
-    /* The root group doesn't have an ID, so we manually close it */
-    tutorial_group_close(f->root, dxpl_id, NULL);
 
     free(f->filename);
     free(f);
