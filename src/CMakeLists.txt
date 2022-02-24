@@ -3,7 +3,6 @@ set (TVC_NAME tutorial_vol_connector)
 
 # Build the tutorial VOL connector
 add_library (${TVC_NAME} SHARED
-    tutorial_dataset.c
     tutorial_file.c
     tutorial_group.c
     tutorial_util.c

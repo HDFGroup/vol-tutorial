@@ -18,37 +18,10 @@
 #include <hdf5.h>
 #include <stdio.h>
 
-struct tutorial_dataset;
 struct tutorial_file;
 struct tutorial_group;
 struct tutorial_link;
 struct tutorial_object;
-
-enum tutorial_data_type {
-    TUTORIAL_DATA_TYPE_FLOAT,
-    TUTORIAL_DATA_TYPE_INT,
-};
-
-#define TUTORIAL_DATA_TYPE_FLOAT_STRING "TUTORIAL_DATA_TYPE_FLOAT"
-#define TUTORIAL_DATA_TYPE_INT_STRING   "TUTORIAL_DATA_TYPE_INT"
-
-struct tutorial_dataset {
-    /* The dataset's data file */
-    FILE *data_file;
-
-    /* The dataset's dataspace file */
-    FILE *space_file;
-
-    /* Dataspace info */
-    hsize_t dims;
-
-    /* Datatype info */
-    /* NOT USED AT THIS TIME */
-    enum tutorial_data_type type;
-
-    /* The fill value */
-    int fillval;
-};
 
 struct tutorial_file {
     /* The root group */
@@ -75,22 +48,9 @@ struct tutorial_object {
 
     /* The object's data */
     union {
-        struct tutorial_dataset dataset;
         struct tutorial_group   group;
     } data;
 };
-
-/* Dataset callbacks */
-void *tutorial_dataset_create(void *obj, const H5VL_loc_params_t *loc_params, const char *name, hid_t lcpl_id,
-                              hid_t type_id, hid_t space_id, hid_t dcpl_id, hid_t dapl_id, hid_t dxpl_id,
-                              void **req);
-void *tutorial_dataset_open(void *obj, const H5VL_loc_params_t *loc_params, const char *name, hid_t dapl_id,
-                            hid_t dxpl_id, void **req);
-herr_t tutorial_dataset_read(void *obj, hid_t mem_type_id, hid_t mem_space_id, hid_t file_space_id,
-                             hid_t dxpl_id, void *buf, void **req);
-herr_t tutorial_dataset_write(void *obj, hid_t mem_type_id, hid_t mem_space_id, hid_t file_space_id,
-                              hid_t dxpl_id, const void *buf, void **req);
-herr_t tutorial_dataset_close(void *dset, hid_t dxpl_id, void **req);
 
 /* File callbacks */
 void * tutorial_file_create(const char *name, unsigned flags, hid_t fcpl_id, hid_t fapl_id, hid_t dxpl_id,

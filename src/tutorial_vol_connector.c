@@ -55,14 +55,14 @@ static const H5VL_class_t tutorial_vol_g = {
     },
     {
         /* dataset_cls */
-        tutorial_dataset_create, /* create           */
-        tutorial_dataset_open,   /* open             */
-        tutorial_dataset_read,   /* read             */
-        tutorial_dataset_write,  /* write            */
-        NULL,                    /* get              */
-        NULL,                    /* specific         */
-        NULL,                    /* optional         */
-        tutorial_dataset_close   /* close            */
+        NULL, /* create           */
+        NULL, /* open             */
+        NULL, /* read             */
+        NULL, /* write            */
+        NULL, /* get              */
+        NULL, /* specific         */
+        NULL, /* optional         */
+        NULL  /* close            */
     },
     {
         /* datatype_cls */
