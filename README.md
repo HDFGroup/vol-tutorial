@@ -42,6 +42,6 @@ In order, the branches are:
 4. group\_operations
 5. dataset\_operations
 
-Each branch includes a TUTORIAL.md file that has several numbered points that describe what has been implemented. You can jump to the salient places in the source code by searching for TUTORIAL\_<#>.
+Each branch includes a TUTORIAL.md file that has several numbered points that describe what has been implemented. You can jump to the salient places in the source code by searching for TUTORIAL\_<#> (e.g., TUTORIAL\_1).
 
 There is just one simple test program that exercises the tutorial VOL. The vol-test repository functionality is not used to test this simple connector.
