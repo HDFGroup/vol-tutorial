@@ -9,7 +9,12 @@ include_HEADERS = tutorial_vol_connector.h
 
 # Tutorial VOL connector
 lib_LTLIBRARIES = libtutorial_vol_connector.la
-libtutorial_vol_connector_la_SOURCES = tutorial_vol_connector.c
+libtutorial_vol_connector_la_SOURCES = \
+	tutorial_dataset.c \
+	tutorial_file.c \
+	tutorial_group.c \
+	tutorial_util.c \
+	tutorial_vol_connector.c
 libtutorial_vol_connector_la_LDFLAGS = $(AM_LDFLAGS) $(HDF5_LDFLAGS) -avoid-version -module -shared -export-dynamic
 libtutorial_vol_connector_la_LIBADD = $(HDF5_LIBS)
 

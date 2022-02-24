@@ -7,6 +7,7 @@
  *              layer (VOL) connector
  */
 
+#define _XOPEN_SOURCE 500
 #include <ftw.h>
 #include <hdf5.h>
 #include <stdio.h>
