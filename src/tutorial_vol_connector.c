@@ -21,7 +21,7 @@ static const H5VL_class_t tutorial_vol_g = {
     H5VL_VERSION,                 /* VOL class struct version */
     TUTORIAL_VOL_CONNECTOR_VALUE, /* value            */
     TUTORIAL_VOL_CONNECTOR_NAME,  /* name             */
-    0,                            /* connector version */
+    1,                            /* connector version */
     0,                            /* capability flags */
     NULL,                         /* initialize       */
     NULL,                         /* terminate        */

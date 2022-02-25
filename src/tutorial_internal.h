@@ -21,7 +21,6 @@
 struct tutorial_dataset;
 struct tutorial_file;
 struct tutorial_group;
-struct tutorial_link;
 struct tutorial_object;
 
 enum tutorial_data_type {
