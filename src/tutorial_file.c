@@ -81,7 +81,7 @@ tutorial_file_create(const char *name, unsigned flags, hid_t fcpl_id, hid_t fapl
     /* Save this for later */
     f->filename = strdup(name);
 
-    /* Create the root group (NOTE) */
+    /* Create the root group (hack - will be replaced in next stage) */
     mkdir(name, 0700);
 
     /* Add a marker that this is an HDF5 file */
