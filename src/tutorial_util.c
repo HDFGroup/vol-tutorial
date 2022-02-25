@@ -17,7 +17,7 @@ make_path(const char *component1, const char *component2, const char *ext)
     char * ptr = NULL;
     size_t len = 0;
 
-    /* length = component 1 + "/" + component 2 + "\n" */
+    /* length = component 1 + "/" + component 2 + "\0" */
     len += strlen(component1) + strlen(component2) + 2;
     if (ext)
         len += strlen(ext) + 1; /* +1 for "." */
