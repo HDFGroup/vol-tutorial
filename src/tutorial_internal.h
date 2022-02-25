@@ -20,7 +20,6 @@
 
 struct tutorial_file;
 struct tutorial_group;
-struct tutorial_link;
 struct tutorial_object;
 
 struct tutorial_file {
