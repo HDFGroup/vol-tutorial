@@ -287,7 +287,7 @@ main(void)
 {
     int   nerrors = 0;
 
-    puts("Testing tutorial VOL connector functionality.");
+    printf("Testing tutorial VOL connector functionality.");
 
     nerrors += test_registration_by_name() < 0 ? 1 : 0;
     nerrors += test_registration_by_value() < 0 ? 1 : 0;
@@ -299,7 +299,7 @@ main(void)
         exit(EXIT_FAILURE);
     }
 
-    puts("All VOL connector plugin tests passed.");
+    printf("All VOL connector plugin tests passed.");
 
     exit(EXIT_SUCCESS);
 

@@ -10,13 +10,7 @@
 #ifndef TUTORIAL_INTERNAL_H
 #define TUTORIAL_INTERNAL_H
 
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wunused-result"
-//#pragma clang diagnostic ignored "-Wunused-parameter"
-
-#include <dirent.h>
 #include <hdf5.h>
-#include <stdio.h>
 
 struct tutorial_object;
 
